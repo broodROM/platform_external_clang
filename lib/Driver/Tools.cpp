@@ -595,6 +595,14 @@ static void addFPUArgs(const Driver &D, const Arg *A, const ArgList &Args,
     CmdArgs.push_back("+vfp3");
     CmdArgs.push_back("-target-feature");
     CmdArgs.push_back("+neon");
+  } else if (FPU == "fp-armv8") {
+    CmdArgs.push_back("-target-feature");
+    CmdArgs.push_back("+v8fp");
+  } else if (FPU == "neon-fp-armv8") {
+    CmdArgs.push_back("-target-feature");
+    CmdArgs.push_back("+v8fp");
+    CmdArgs.push_back("-target-feature");
+    CmdArgs.push_back("+neon");
   } else if (FPU == "neon") {
     CmdArgs.push_back("-target-feature");
     CmdArgs.push_back("+neon");
@@ -6631,3 +6639,4 @@ void visualstudio::Link::ConstructJob(Compilation &C, const JobAction &JA,
     Args.MakeArgString(getToolChain().GetProgramPath("link.exe"));
   C.addCommand(new Command(JA, *this, Exec, CmdArgs));
 }
+
